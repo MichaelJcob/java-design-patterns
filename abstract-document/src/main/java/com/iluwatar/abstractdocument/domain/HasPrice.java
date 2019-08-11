@@ -1,6 +1,6 @@
 /**
  * The MIT License
- * Copyright (c) 2014 Ilkka Seppälä
+ * Copyright (c) 2014-2016 Ilkka Seppälä
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,16 +25,16 @@ package com.iluwatar.abstractdocument.domain;
 import java.util.Optional;
 
 import com.iluwatar.abstractdocument.Document;
+import com.iluwatar.abstractdocument.domain.enums.Property;
 
 /**
  * HasPrice trait for static access to 'price' property
  */
 public interface HasPrice extends Document {
 
-  String PROPERTY = "price";
 
   default Optional<Number> getPrice() {
-    return Optional.ofNullable((Number) get(PROPERTY));
+    return Optional.ofNullable((Number) get(Property.PRICE.toString()));
   }
 
 }

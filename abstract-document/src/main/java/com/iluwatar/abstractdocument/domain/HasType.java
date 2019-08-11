@@ -1,6 +1,6 @@
 /**
  * The MIT License
- * Copyright (c) 2014 Ilkka Seppälä
+ * Copyright (c) 2014-2016 Ilkka Seppälä
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,19 +22,19 @@
  */
 package com.iluwatar.abstractdocument.domain;
 
-import com.iluwatar.abstractdocument.Document;
-
 import java.util.Optional;
+
+import com.iluwatar.abstractdocument.Document;
+import com.iluwatar.abstractdocument.domain.enums.Property;
 
 /**
  * HasType trait for static access to 'type' property
  */
 public interface HasType extends Document {
 
-  String PROPERTY = "type";
 
   default Optional<String> getType() {
-    return Optional.ofNullable((String) get(PROPERTY));
+    return Optional.ofNullable((String) get(Property.TYPE.toString()));
   }
 
 }

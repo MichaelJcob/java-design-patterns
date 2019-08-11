@@ -1,6 +1,6 @@
 /**
  * The MIT License
- * Copyright (c) 2014 Ilkka Seppälä
+ * Copyright (c) 2014-2016 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,12 +22,19 @@
  */
 package com.iluwatar.doubledispatch;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.iluwatar.doubledispatch.constants.AppConstants;
+
 /**
  * 
  * Meteoroid game object
  *
  */
 public class Meteoroid extends GameObject {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(Meteoroid.class);
 
   public Meteoroid(int left, int top, int right, int bottom) {
     super(left, top, right, bottom);
@@ -40,25 +47,21 @@ public class Meteoroid extends GameObject {
 
   @Override
   public void collisionResolve(FlamingAsteroid asteroid) {
-    System.out.println(String.format("%s hits %s.", asteroid.getClass().getSimpleName(), this
-        .getClass().getSimpleName()));
+    LOGGER.info(AppConstants.HITS, asteroid.getClass().getSimpleName(), this.getClass().getSimpleName());
   }
 
   @Override
   public void collisionResolve(Meteoroid meteoroid) {
-    System.out.println(String.format("%s hits %s.", meteoroid.getClass().getSimpleName(), this
-        .getClass().getSimpleName()));
+    LOGGER.info(AppConstants.HITS, meteoroid.getClass().getSimpleName(), this.getClass().getSimpleName());
   }
 
   @Override
   public void collisionResolve(SpaceStationMir mir) {
-    System.out.println(String.format("%s hits %s.", mir.getClass().getSimpleName(), this.getClass()
-        .getSimpleName()));
+    LOGGER.info(AppConstants.HITS, mir.getClass().getSimpleName(), this.getClass().getSimpleName());
   }
 
   @Override
   public void collisionResolve(SpaceStationIss iss) {
-    System.out.println(String.format("%s hits %s.", iss.getClass().getSimpleName(), this.getClass()
-        .getSimpleName()));
+    LOGGER.info(AppConstants.HITS, iss.getClass().getSimpleName(), this.getClass().getSimpleName());
   }
 }

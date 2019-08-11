@@ -1,6 +1,6 @@
 /**
  * The MIT License
- * Copyright (c) 2014 Ilkka Seppälä
+ * Copyright (c) 2014-2016 Ilkka Seppälä
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,15 +22,15 @@
  */
 package com.iluwatar.abstractdocument;
 
-import com.iluwatar.abstractdocument.domain.Car;
-import com.iluwatar.abstractdocument.domain.HasModel;
-import com.iluwatar.abstractdocument.domain.HasParts;
-import com.iluwatar.abstractdocument.domain.HasPrice;
-import com.iluwatar.abstractdocument.domain.HasType;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.iluwatar.abstractdocument.domain.Car;
+import com.iluwatar.abstractdocument.domain.enums.Property;
 
 /**
  * The Abstract Document pattern enables handling additional, non-static
@@ -44,36 +44,37 @@ import java.util.Map;
  */
 public class App {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
+
   /**
    * Executes the App
    */
   public App() {
-    System.out.println("Constructing parts and car");
+    LOGGER.info("Constructing parts and car");
 
     Map<String, Object> carProperties = new HashMap<>();
-    carProperties.put(HasModel.PROPERTY, "300SL");
-    carProperties.put(HasPrice.PROPERTY, 10000L);
+    carProperties.put(Property.MODEL.toString(), "300SL");
+    carProperties.put(Property.PRICE.toString(), 10000L);
 
     Map<String, Object> wheelProperties = new HashMap<>();
-    wheelProperties.put(HasType.PROPERTY, "wheel");
-    wheelProperties.put(HasModel.PROPERTY, "15C");
-    wheelProperties.put(HasPrice.PROPERTY, 100L);
+    wheelProperties.put(Property.TYPE.toString(), "wheel");
+    wheelProperties.put(Property.MODEL.toString(), "15C");
+    wheelProperties.put(Property.PRICE.toString(), 100L);
 
     Map<String, Object> doorProperties = new HashMap<>();
-    doorProperties.put(HasType.PROPERTY, "door");
-    doorProperties.put(HasModel.PROPERTY, "Lambo");
-    doorProperties.put(HasPrice.PROPERTY, 300L);
+    doorProperties.put(Property.TYPE.toString(), "door");
+    doorProperties.put(Property.MODEL.toString(), "Lambo");
+    doorProperties.put(Property.PRICE.toString(), 300L);
 
-    carProperties.put(HasParts.PROPERTY, Arrays.asList(wheelProperties, doorProperties));
+    carProperties.put(Property.PARTS.toString(), Arrays.asList(wheelProperties, doorProperties));
 
     Car car = new Car(carProperties);
 
-    System.out.println("Here is our car:");
-    System.out.println("-> model: " + car.getModel().get());
-    System.out.println("-> price: " + car.getPrice().get());
-    System.out.println("-> parts: ");
-    car.getParts().forEach(p -> System.out
-        .println("\t" + p.getType().get() + "/" + p.getModel().get() + "/" + p.getPrice().get()));
+    LOGGER.info("Here is our car:");
+    LOGGER.info("-> model: {}", car.getModel().get());
+    LOGGER.info("-> price: {}", car.getPrice().get());
+    LOGGER.info("-> parts: ");
+    car.getParts().forEach(p -> LOGGER.info("\t{}/{}/{}", p.getType().get(), p.getModel().get(), p.getPrice().get()));
   }
 
   /**

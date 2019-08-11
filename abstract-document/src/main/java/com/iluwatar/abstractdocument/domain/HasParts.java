@@ -1,6 +1,6 @@
 /**
  * The MIT License
- * Copyright (c) 2014 Ilkka Seppälä
+ * Copyright (c) 2014-2016 Ilkka Seppälä
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,16 +25,16 @@ package com.iluwatar.abstractdocument.domain;
 import java.util.stream.Stream;
 
 import com.iluwatar.abstractdocument.Document;
+import com.iluwatar.abstractdocument.domain.enums.Property;
 
 /**
  * HasParts trait for static access to 'parts' property
  */
 public interface HasParts extends Document {
 
-  String PROPERTY = "parts";
 
   default Stream<Part> getParts() {
-    return children(PROPERTY, Part::new);
+    return children(Property.PARTS.toString(), Part::new);
   }
 
 }
